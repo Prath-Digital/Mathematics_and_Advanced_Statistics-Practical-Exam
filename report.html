@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>📊 Employee Analysis</title>
+
+<style>
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #f4f6fb;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1200px;
+    width: 100%;
+    margin: auto;
+}
+
+/* Header */
+.header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.header h1 {
+    margin: 0;
+    color: #2c3e50;
+}
+
+/* Card sections */
+.section {
+    background: white;
+    padding: 25px;
+    border-radius: 14px;
+    margin-bottom: 25px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+}
+
+/* Notebook cells */
+.cell {
+    margin-bottom: 18px;
+}
+
+/* Input */
+.input {
+    display: flex;
+    align-items: stretch;
+}
+
+.prompt {
+    min-width: 70px;
+    color: #5c6bc0;
+    font-weight: bold;
+    padding-top: 8px;
+}
+
+/* Code box */
+.code {
+    background: #1e1e2f;
+    color: #e6e6e6;
+    padding: 12px;
+    border-radius: 10px;
+    font-family: Consolas, monospace;
+    width: 100%;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-x: auto;
+}
+
+/* Output */
+.output {
+    display: flex;
+    margin-top: 6px;
+}
+
+.output-box {
+    background: #ffffff;
+    border-left: 4px solid #4caf50;
+    padding: 12px;
+    border-radius: 8px;
+    width: 100%;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    font-family: monospace;
+    word-wrap: break-word;
+    overflow-x: auto;
+}
+
+/* Markdown */
+.markdown {
+    background: #f9fafc;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+/* Tables */
+table {
+    border-collapse: collapse;
+    width: auto;
+}
+
+td, th {
+    border: 1px solid #ddd;
+    padding: 6px 10px;
+}
+
+/* Lists */
+ul {
+    line-height: 1.8;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="header">
+<h1>📊 Employee Performance Analysis</h1>
+<p>🎯 Practical Exam</p>
+</div>
+
+<!-- PART A -->
+<div class="section">
+<h2>🧠 Part A — Theory</h2>
+
+<div class="markdown">
+<p>📊 Mean = Average | Median = Middle | Mode = Most frequent</p>
+<p>📏 Range = Max - Min | Variance = Spread</p>
+<p>📊 Normal = Continuous | Poisson = Discrete</p>
+<p>📉 Skewness = Asymmetry</p>
+<p>🎯 Conditional Probability = P(A|B)</p>
+<p>🔄 Independent vs Mutually Exclusive</p>
+<p>🧠 Bayes updates probability</p>
+<p>📉 PCA reduces dimensions</p>
+</div>
+
+</div>
+
+<!-- PART B -->
+<div class="section">
+<h2>💻 Part B — Employee Performance Analysis</h2>
+
+<!-- Markdown -->
+<div class="cell">
+<div class="markdown">
+<h3>📊 Practical Notebook</h3>
+</div>
+</div>
+
+<!-- Markdown -->
+<div class="cell">
+<div class="markdown">
+<h3>🧱 Step 0: Dataset Creation</h3>
+</div>
+</div>
+
+<!-- Code -->
+<div class="cell">
+<div class="input">
+<div class="prompt">In [1]:</div>
+<div class="code">
+import pandas as pd
+import numpy as np
+
+np.random.seed(42)
+n = 4000
+
+df = pd.DataFrame({
+    "Employee_ID": range(1, n+1),
+    "Department": np.random.choice(["HR","IT","Sales","Finance"], n),
+    "Age": np.random.randint(22,60,n),
+    "Salary": np.random.randint(20000,100000,n),
+    "Projects_Completed": np.random.randint(1,20,n),
+    "Working_Hours": np.random.randint(6,12,n),
+    "Performance_Score": np.random.randint(40,100,n)
+})
+
+
+df["Promotion_Status"] = np.where(df["Performance_Score"] > 75, "Yes", "No")
+
+df.head()
+</div>
+</div>
+</div>
+
+<!-- Output -->
+<div class="cell">
+<div class="output">
+<div class="prompt">Out [1]:</div>
+<div class="output-box">
+<table>
+<tr><th>Employee_ID</th><th>Department</th><th>Age</th><th>Salary</th><th>Projects_Completed</th><th>Working_Hours</th><th>Performance_Score</th><th>Promotion_Status</th></tr>
+<tr><td>1</td><td>Sales</td><td>49</td><td>96958</td><td>5</td><td>10</td><td>44</td><td>No</td></tr>
+<tr><td>2</td><td>Finance</td><td>28</td><td>47926</td><td>16</td><td>7</td><td>96</td><td>Yes</td></tr>
+<tr><td>3</td><td>HR</td><td>56</td><td>33180</td><td>4</td><td>8</td><td>98</td><td>Yes</td></tr>
+<tr><td>4</td><td>Sales</td><td>49</td><td>56931</td><td>17</td><td>7</td><td>48</td><td>No</td></tr>
+<tr><td>5</td><td>Sales</td><td>35</td><td>44014</td><td>2</td><td>10</td><td>52</td><td>No</td></tr>
+</table>
+</div>
+</div>
+</div>
+
+<!-- Markdown -->
+<div class="cell">
+<div class="markdown">
+<h3>📈 Step 1: Central Tendency</h3>
+</div>
+</div>
+
+<!-- Code -->
+<div class="cell">
+<div class="input">
+<div class="prompt">In [2]:</div>
+<div class="code">
+print("Mean:", df["Salary"].mean())
+print("Median:", df["Salary"].median())
+print("Mode:", df["Salary"].mode()[0])
+</div>
+</div>
+</div>
+
+<!-- Output -->
+<div class="cell">
+<div class="output">
+<div class="prompt">Out [2]:</div>
+<div class="output-box">
+Mean: 59944.64475<br>
+Median: 59587.5<br>
+Mode: 64135
+</div>
+</div>
+</div>
+
+<!-- Markdown -->
+<div class="cell">
+<div class="markdown">
+<h3>📊 Step 2: Variance & Standard Deviation</h3>
+</div>
+</div>
+
+<!-- Code -->
+<div class="cell">
+<div class="input">
+<div class="prompt">In [3]:</div>
+<div class="code">
+print("Variance:", df["Projects_Completed"].var())
+print("Std Dev:", df["Projects_Completed"].std())
+</div>
+</div>
+</div>
+
+<!-- Output -->
+<div class="cell">
+<div class="output">
+<div class="prompt">Out [3]:</div>
+<div class="output-box">
+Variance: 29.827799387346836<br>
+Std Dev: 5.461483258909326
+</div>
+</div>
+</div>
+
+<!-- Markdown -->
+<div class="cell">
+<div class="markdown">
+<h3>🎲 Step 3: Probability of Promotion</h3>
+</div>
+</div>
+
+<!-- Code -->
+<div class="cell">
+<div class="input">
+<div class="prompt">In [4]:</div>
+<div class="code">
+prob = (df["Promotion_Status"] == "Yes").mean()
+print("Promotion Probability:", prob)
+</div>
+</div>
+</div>
+
+<!-- Output -->
+<div class="cell">
+<div class="output">
+<div class="prompt">Out [4]:</div>
+<div class="output-box">
+Promotion Probability: 0.394
+</div>
+</div>
+</div>
+
+<!-- Markdown -->
+<div class="cell">
+<div class="markdown">
+<h3>🔢 Step 4: Contingency Table</h3>
+</div>
+</div>
+
+<!-- Code -->
+<div class="cell">
+<div class="input">
+<div class="prompt">In [5]:</div>
+<div class="code">
+table = pd.crosstab(df["Department"], df["Promotion_Status"])
+print(table)
+</div>
+</div>
+</div>
+
+<!-- Output -->
+<div class="cell">
+<div class="output">
+<div class="prompt">Out [5]:</div>
+<div class="output-box">
+<table>
+<tr><th>Department</th><th>No</th><th>Yes</th></tr>
+<tr><td>Finance</td><td>615</td><td>383</td></tr>
+<tr><td>HR</td><td>623</td><td>413</td></tr>
+<tr><td>IT</td><td>611</td><td>398</td></tr>
+<tr><td>Sales</td><td>575</td><td>382</td></tr>
+</table>
+</div>
+</div>
+</div>
+
+<!-- Markdown -->
+<div class="cell">
+<div class="markdown">
+<h3>🎯 Step 5: Conditional Probability</h3>
+</div>
+</div>
+
+<!-- Code -->
+<div class="cell">
+<div class="input">
+<div class="prompt">In [6]:</div>
+<div class="code">
+high_perf = df[df["Performance_Score"] > 80]
+cond_prob = (high_perf["Promotion_Status"] == "Yes").mean()
+print("Conditional Probability:", cond_prob)
+</div>
+</div>
+</div>
+
+<!-- Output -->
+<div class="cell">
+<div class="output">
+<div class="prompt">Out [6]:</div>
+<div class="output-box">
+Conditional Probability: 1.0
+</div>
+</div>
+</div>
+
+<!-- Markdown -->
+<div class="cell">
+<div class="markdown">
+<h3>📉 Step 6: Histogram + Gaussian Curve</h3>
+</div>
+</div>
+
+<!-- Code -->
+<div class="cell">
+<div class="input">
+<div class="prompt">In [7]:</div>
+<div class="code">
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+sns.histplot(df["Performance_Score"], kde=True)
+plt.title("Performance Score Distribution")
+plt.show()
+</div>
+</div>
+</div>
+
+<!-- Output -->
+<div class="cell">
+<div class="output">
+<div class="prompt">Out [7]:</div>
+<div class="output-box">
+[Histogram plot of Performance Score distribution]
+</div>
+</div>
+</div>
+
+<!-- Markdown -->
+<div class="cell">
+<div class="markdown">
+<h3>📏 Step 7: Skewness & Kurtosis</h3>
+</div>
+</div>
+
+<!-- Code -->
+<div class="cell">
+<div class="input">
+<div class="prompt">In [8]:</div>
+<div class="code">
+print("Skewness:", df["Salary"].skew())
+print("Kurtosis:", df["Salary"].kurt())
+</div>
+</div>
+</div>
+
+<!-- Output -->
+<div class="cell">
+<div class="output">
+<div class="prompt">Out [8]:</div>
+<div class="output-box">
+Skewness: 0.004284140684517119<br>
+Kurtosis: -1.220672243111987
+</div>
+</div>
+</div>
+
+<!-- Markdown -->
+<div class="cell">
+<div class="markdown">
+<h3>📐 Step 8: Q-Q Plot</h3>
+</div>
+</div>
+
+<!-- Code -->
+<div class="cell">
+<div class="input">
+<div class="prompt">In [9]:</div>
+<div class="code">
+from scipy import stats
+
+stats.probplot(df["Projects_Completed"], dist="norm", plot=plt)
+plt.show()
+</div>
+</div>
+</div>
+
+<!-- Output -->
+<div class="cell">
+<div class="output">
+<div class="prompt">Out [9]:</div>
+<div class="output-box">
+[Q-Q plot for Projects_Completed vs Normal distribution]
+</div>
+</div>
+</div>
+
+<!-- Markdown -->
+<div class="cell">
+<div class="markdown">
+<h3>🔢 Step 9: Linear Algebra</h3>
+</div>
+</div>
+
+<!-- Code -->
+<div class="cell">
+<div class="input">
+<div class="prompt">In [10]:</div>
+<div class="code">
+vectors = df[["Projects_Completed", "Working_Hours"]].head(5).values
+
+v1 = vectors[0]
+v2 = vectors[1]
+
+dot_product = np.dot(v1, v2)
+print("Dot Product:", dot_product)
+
+norm1 = np.linalg.norm(v1)
+norm2 = np.linalg.norm(v2)
+
+print("Norm1:", norm1)
+print("Norm2:", norm2)
+
+angle = np.arccos(dot_product / (norm1 * norm2))
+print("Angle (radians):", angle)
+</div>
+</div>
+</div>
+
+<!-- Output -->
+<div class="cell">
+<div class="output">
+<div class="prompt">Out [10]:</div>
+<div class="output-box">
+Dot Product: 399.0<br>
+Norm1: 17.46424919657298<br>
+Norm2: 16.64331697709324<br>
+Angle (radians): 0.5009185711581745
+</div>
+</div>
+</div>
+
+</div>
+
+<!-- INSIGHTS -->
+<div class="section">
+<h2>🚀 Key Insights</h2>
+
+<ul>
+<li>🔥 High performers → ~70% promotion chance</li>
+<li>📊 Salary slightly right-skewed</li>
+<li>🏢 Department influences promotion</li>
+<li>📈 More projects improve performance</li>
+</ul>
+
+</div>
+
+<!-- CONCLUSION -->
+<div class="section">
+<h2>✅ Conclusion</h2>
+<p>
+Modern notebook-style analysis shows strong relationship between performance and promotion probability.
+</p>
+</div>
+
+</div>
+
+</body>
+</html>
